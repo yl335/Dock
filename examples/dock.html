@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<script src="../js/jquery-1.7.2.min.js"></script>
+		<script src="../dock.js"></script>
+		<link rel="stylesheet" href="reset.css" />
+		<style>
+		h2 {
+			color: #555;
+			font-size: 24px;
+			font-family: "Helvetica neue", Helvetica, Arial, sans-serif;
+			line-height: 40px;
+			padding: 0 20px;
+			border-bottom: 1px solid #ddd;
+			border-top: 1px solid #ddd;
+			background: #f4f4f4;
+		}
+		li {
+			height: 200px;
+		}
+		.docked {
+			border-top-color: white;
+		}
+		.docked.last {
+			border-bottom-color; white;
+			box-shadow: 0 2px 5px #eee;
+		}
+		</style>
+	</head>
+	
+	<body>
+		<div class="section">
+			<h2>Dockable section heading</h2>
+			<ul>
+				<li></li>
+			</ul>
+		</div>
+		<script>
+		$(function() {
+			var $el = $(".section"),
+				$nextEl = {};
+			for (var i = 0; i < 5; i++) {
+				$nextEl = $($el[0]).clone();
+				$nextEl.insertAfter($el);
+				$el = $nextEl;
+			}
+			$("h2").dock();
+		});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<script src="../js/jquery-1.7.2.min.js"></script>
+		<script src="../dock.js"></script>
+		<link rel="stylesheet" href="reset.css" />
+		<style>
+		html {
+			font-family: "Helvetica neue", Helvetica, Arial, sans-serif;
+			color: #555;
+		}
+		header {
+			background: #ccc;
+			font-size: 30px;
+			height: 90px;
+			text-align: center;
+			padding: 20px;
+			line-height: 60px;
+		}
+		nav {
+			font-size: 16px;
+			border-bottom: 1px solid #ddd;
+			border-top: 1px solid #ddd;
+			background: #f4f4f4;
+		}
+		li {
+			float: left;
+			display: inline-block;
+			line-height: 30px;
+			padding: 0 40px;
+		}
+		li.active {
+			background: #999;
+			color: white;
+		}
+		section {
+			border-bottom: 1px solid #ccc;
+		}
+		section p {
+			margin: 20px 40px;
+		}
+		.docked {
+			border-top-color: white;
+		}
+		.docked.last {
+			border-bottom-color; white;
+			box-shadow: 0 2px 5px #eee;
+		}
+		.clearfix:after {
+			content: ".";
+			display: block;
+			clear: both;
+			visibility: hidden;
+			line-height: 0;
+			height: 0;
+		}
+		 
+		.clearfix {
+			display: inline-block;
+		}
+		 
+		html[xmlns] .clearfix {
+			display: block;
+		}
+		 
+		* html .clearfix {
+			height: 1%;
+		}
+		</style>
+	</head>
+	
+	<body>
+		<header>
+			<h1>Header</h1>
+		</header>
+		<nav>
+			<ul class="clearfix">
+				<li></li>
+			</ul>
+		</nav>
+		<section>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius, lectus faucibus porttitor sodales, risus lorem ullamcorper purus, vitae ultricies augue tellus et urna. Morbi massa turpis, viverra ut volutpat at, luctus tempus purus. Maecenas velit enim, tincidunt consequat gravida nec, consectetur et odio. Vestibulum luctus vehicula dolor tristique cursus. In sed porta libero. Aenean quis nibh non orci sagittis volutpat. Phasellus feugiat metus in nunc semper ornare.</p>
+
+<p>Morbi a lectus neque. Vivamus fermentum, mauris eu eleifend varius, ipsum risus tincidunt odio, eu luctus quam sem quis metus. Etiam lobortis sodales odio, eu feugiat nisi feugiat id. Fusce velit magna, ornare sed elementum ac, suscipit eu felis. In fringilla velit et tortor pharetra fringilla. Nunc nec ipsum blandit nibh faucibus semper et condimentum massa. Curabitur bibendum commodo purus, quis cursus enim facilisis vitae. Praesent luctus, tellus id volutpat blandit, velit sem imperdiet elit, a consequat elit magna id ipsum. Donec egestas sem sit amet orci laoreet in luctus lectus viverra. Nunc in erat velit, sed fermentum arcu. Maecenas aliquam mollis fringilla.</p>
+
+<p>Morbi a lectus neque. Vivamus fermentum, mauris eu eleifend varius, ipsum risus tincidunt odio, eu luctus quam sem quis metus. Etiam lobortis sodales odio, eu feugiat nisi feugiat id. Fusce velit magna, ornare sed elementum ac, suscipit eu felis. In fringilla velit et tortor pharetra fringilla. Nunc nec ipsum blandit nibh faucibus semper et condimentum massa. Curabitur bibendum commodo purus, quis cursus enim facilisis vitae. Praesent luctus, tellus id volutpat blandit, velit sem imperdiet elit, a consequat elit magna id ipsum. Donec egestas sem sit amet orci laoreet in luctus lectus viverra. Nunc in erat velit, sed fermentum arcu. Maecenas aliquam mollis fringilla.</p>
+
+<p>Morbi a lectus neque. Vivamus fermentum, mauris eu eleifend varius, ipsum risus tincidunt odio, eu luctus quam sem quis metus. Etiam lobortis sodales odio, eu feugiat nisi feugiat id. Fusce velit magna, ornare sed elementum ac, suscipit eu felis. In fringilla velit et tortor pharetra fringilla. Nunc nec ipsum blandit nibh faucibus semper et condimentum massa. Curabitur bibendum commodo purus, quis cursus enim facilisis vitae. Praesent luctus, tellus id volutpat blandit, velit sem imperdiet elit, a consequat elit magna id ipsum. Donec egestas sem sit amet orci laoreet in luctus lectus viverra. Nunc in erat velit, sed fermentum arcu. Maecenas aliquam mollis fringilla.</p>
+		</section>
+		<script>
+		$(function() {
+			var $section = $("section"),
+				$nav = $("nav li");
+			for (var i = 0; i < 5; i++) {
+				$nextSection = $($section[0]).clone();
+				$nextNav = $($nav[0]).clone();
+
+				$section.attr('id',"section"+i);
+				$nav.text("Section"+i).addClass("section"+i);
+				
+				if (i<4) {
+					$nextSection.insertAfter($section);
+					$nextNav.insertAfter($nav);
+					
+					$section = $nextSection;
+					$nav = $nextNav;
+				}
+			}
+			$("nav").dock();
+			$("nav").dock('addObserver', {
+				'selector'		: 'section',
+				'setup'			: function ($section) {
+					var sectionID = $section.attr("id");
+					$("nav .active").removeClass("active");
+					$("nav ."+sectionID).addClass("active");
+				}
+			});
+		});
+		</script>
+	</body>
+</html>
